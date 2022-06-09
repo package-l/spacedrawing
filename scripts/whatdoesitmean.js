@@ -39,15 +39,15 @@ window.onload = function() {
     }
   }
 
-  document.getElementById("pen").addEventListener("click", function() {
+  document.getElementById("pen").addEventListener("click", function(eve) {
     toolSwitch("pen");
   }, false);
 
-  document.getElementById("line").addEventListener("click", function() {
+  document.getElementById("line").addEventListener("click", function(eve) {
     toolSwitch("line");
   }, false);
 
-  document.getElementById("circle").addEventListener("click", function() {
+  document.getElementById("circle").addEventListener("click", function(eve) {
     toolSwitch("circle");
   }, false);
 
@@ -57,11 +57,15 @@ window.onload = function() {
   }, false);
   //document.body.appendChild(link);
 
-  document.getElementById("saveLocal").addEventListener("click", function() {
+  /*document.getElementById("saveLocal").addEventListener("click", function() {
     toolSwitch("saveLocal");
-  }, false);
+  }, false);*/
 
   function toolSwitch(tool) {
+    document.removeEventListener('mousemove', draw);
+    document.removeEventListener('mousemove', mouseMove);
+    document.removeEventListener('mousemove', circle);
+
     if (tool == "pen") {
       document.addEventListener('mousedown', mouseDown);
       document.addEventListener('mouseup', mouseUp);
@@ -82,11 +86,11 @@ window.onload = function() {
       document.addEventListener('mouseup', mouseUp);
       document.addEventListener('mousemove', save);
     }
-    if (tool == "load") {
+    /*if (tool == "load") {
       document.addEventListener('mousedown', mouseDown);
       document.addEventListener('mouseup', mouseUp);
       document.addEventListener('mousemove', load);
-    }
+    }*/
   }
 
   function draw(e){
@@ -184,12 +188,10 @@ window.onload = function() {
       image: canvasContents,
     };
     var string = JSON.stringify(data);
-
     // create a blob object representing the data as a JSON string
     var file = new Blob([string], {
       type: 'application/json'
     });
-
     // trigger a click event on an <a> tag to open the file explorer
     var a = document.createElement('a');
     a.href = URL.createObjectURL(file);

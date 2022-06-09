@@ -15,7 +15,7 @@ p {
   margin: auto;
 }
 
-#fav {
+.fav {
   max-width: 20px;
 }
 
